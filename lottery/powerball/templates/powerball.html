@@ -1,0 +1,42 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+    <p>Oops! Something went wrong</p>
+{% endif %}
+
+{% if next %}
+    <div class="powerball-container">
+    <div class="header">
+    <h1>Random Powerball Pick</h1>
+    </div>
+    {% for wb in wb_array %}
+    <div class="ball whiteball wb{{forloop.counter}}">
+        <div class="number">
+        {{wb}}
+        </div>
+    </div>
+    {% endfor %}
+    
+    <div class="ball powerball">
+        <div class="number">
+        {{pb}}
+        </div>
+        
+    </div>
+    </div>
+{% endif %}
+
+{% if not next %}
+    <p>Press the button below to generate a powerball pick!</p>
+{% endif %}
+<br>
+<form method="post" action="">
+    <!-- {% url 'powerball' %} -->
+    {% csrf_token %}    
+    <input type="submit" value="Generate"/>
+    <input type="hidden" name="next" value="{{ next }}" />
+</form>    
+        
+{% endblock %}
